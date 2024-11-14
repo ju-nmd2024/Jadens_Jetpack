@@ -2,6 +2,27 @@ function setup() {
   createCanvas(800, 600);
 }
 
+function startScreen() {
+  background(200, 200, 200);
+  textAlign(CENTER);
+  push();
+  textSize(50);
+  text("GAME TITLE", 400, 280);
+  pop();
+  textSize(20);
+  text("PLAY", 400, 330);
+}
+
+function gameScreen() {
+  background(135, 206, 235);
+  character(800, 150, 0.4);
+}
+
+function resultScreen() {
+  background(100, 0, 0);
+  text("PLAY AGAIN", 400, 400);
+}
+
 function character(x, y, s) {
   scale(s);
 
@@ -144,7 +165,24 @@ function character(x, y, s) {
   ellipse(x + 95, y, 30, 20);
 }
 
+let state = "start";
+
 function draw() {
-  background(255);
-  character(200, 200, 0.4);
+  if (state === "start") {
+    startScreen();
+  } else if (state === "game") {
+    gameScreen();
+  } else if (state === "result") {
+    resultScreen();
+  }
+}
+
+function mouseClicked() {
+  if (state === "start") {
+    state = "game";
+  } else if (state === "game") {
+    state = "result";
+  } else if (state === "result") {
+    state = "game";
+  }
 }
