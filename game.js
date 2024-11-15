@@ -1,5 +1,6 @@
 function setup() {
   createCanvas(800, 600);
+  frameRate(60);
 }
 
 function startScreen() {
@@ -15,7 +16,7 @@ function startScreen() {
 
 function gameScreen() {
   background(135, 206, 235);
-  character(800, 150, 0.4);
+  character(800, characterY, 0.4);
 }
 
 function resultScreen() {
@@ -166,6 +167,9 @@ function character(x, y, s) {
 }
 
 let state = "start";
+let characterY = -500;
+let velocity = 0.4;
+let accelration = 0.4;
 
 function draw() {
   if (state === "start") {
@@ -174,6 +178,15 @@ function draw() {
     gameScreen();
   } else if (state === "result") {
     resultScreen();
+  }
+
+  //Gravity
+  characterY += velocity;
+  velocity += accelration;
+
+  //Jetpack control
+  if (keyIsDown(32)) {
+    velocity--;
   }
 }
 
