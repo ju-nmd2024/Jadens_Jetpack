@@ -1,3 +1,8 @@
+let state = "start";
+let characterY = -200;
+let velocity = 0.4;
+let acceleration = 0.4;
+
 function setup() {
   createCanvas(800, 600);
   frameRate(60);
@@ -15,8 +20,13 @@ function startScreen() {
 }
 
 function gameScreen() {
+  push();
   background(135, 206, 235);
-  character(800, characterY, 0.4);
+  noStroke();
+  fill(19, 133, 16);
+  rect(0, 560, 800, 40);
+  pop();
+  character(900, characterY, 0.4);
 }
 
 function resultScreen() {
@@ -25,6 +35,7 @@ function resultScreen() {
 }
 
 function character(x, y, s) {
+  push();
   scale(s);
 
   //Jetpack
@@ -164,12 +175,8 @@ function character(x, y, s) {
   //Mouth
   fill(234, 118, 118);
   ellipse(x + 95, y, 30, 20);
+  pop();
 }
-
-let state = "start";
-let characterY = -500;
-let velocity = 0.4;
-let accelration = 0.4;
 
 function draw() {
   if (state === "start") {
@@ -182,11 +189,16 @@ function draw() {
 
   //Gravity
   characterY += velocity;
-  velocity += accelration;
+  velocity += acceleration;
 
   //Jetpack control
   if (keyIsDown(32)) {
     velocity--;
+  }
+
+  if (characterY >= 920) {
+    velocity = 0;
+    acceleration = 0;
   }
 }
 
@@ -197,5 +209,8 @@ function mouseClicked() {
     state = "result";
   } else if (state === "result") {
     state = "game";
+    characterY = -200;
+    velocity = 0.4;
+    acceleration = 0.4;
   }
 }
