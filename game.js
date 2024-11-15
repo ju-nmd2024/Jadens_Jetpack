@@ -4,6 +4,11 @@ let velocity = 0.4;
 let acceleration = 0.4;
 let grassY = 563;
 
+//Text
+let bigResultText = 60;
+let smallResultText = 30;
+let startText = 40;
+
 function setup() {
   createCanvas(800, 600);
   frameRate(60);
@@ -11,13 +16,16 @@ function setup() {
 
 function startScreen() {
   background(200, 200, 200);
-  textAlign(CENTER);
   push();
-  textSize(50);
+  textAlign(CENTER);
+  textSize(80);
   text("GAME TITLE", 400, 280);
   pop();
-  textSize(20);
-  text("PLAY", 400, 330);
+  push();
+  textAlign(CENTER);
+  textSize(startText);
+  text("START", 400, 340);
+  pop();
   velocity = 0;
 }
 
@@ -32,6 +40,7 @@ function gameScreen() {
 }
 
 function resultScreenWin() {
+  push();
   background(135, 206, 235);
   push();
   noStroke();
@@ -39,25 +48,57 @@ function resultScreenWin() {
   rect(0, grassY, 800, 50);
   pop();
   character(900, 939);
+
+  //Big win text
   push();
   textAlign(CENTER);
-  text("Well done!", 400, 150);
-  text("PLAY AGAIN", 400, 200);
+  textSize(bigResultText);
+  text("WELL DONE", 400, 150);
+  pop();
+
+  //Small win text
+  push();
+  textAlign(CENTER);
+  textSize(smallResultText);
+  text("That landing was smooth!", 400, 190);
+  pop();
+
+  //Restart text
+  push();
+  textAlign(CENTER);
+  textSize(startText);
+  text("RESTART", 400, 300);
   pop();
 }
 
 function resultScreenLose() {
-  background(255, 0, 0);
   push();
+  background(135, 206, 235);
   noStroke();
   fill(19, 133, 16);
   rect(0, grassY, 800, 50);
   pop();
   character(900, 939);
+
+  //Big lose text
   push();
   textAlign(CENTER);
-  text("You crashed!", 400, 150);
-  text("PLAY AGAIN", 400, 200);
+  textSize(bigResultText);
+  text("YOU CRASHED", 400, 150);
+  pop();
+
+  //Small lose text
+  push();
+  textAlign(CENTER);
+  textSize(smallResultText);
+  text("Better luck next time", 400, 190);
+  pop();
+
+  //Restart text
+  push();
+  textAlign(CENTER);
+  textSize(startText);
+  text("RESTART", 400, 300);
   pop();
 }
 
