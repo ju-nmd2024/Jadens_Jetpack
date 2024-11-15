@@ -2,6 +2,7 @@ let state = "start";
 let characterY = -200;
 let velocity = 0.4;
 let acceleration = 0.4;
+let grassY = 563;
 
 function setup() {
   createCanvas(800, 600);
@@ -17,26 +18,36 @@ function startScreen() {
   pop();
   textSize(20);
   text("PLAY", 400, 330);
+  velocity = 0;
 }
 
 function gameScreen() {
-  push();
   background(135, 206, 235);
+  push();
   noStroke();
   fill(19, 133, 16);
-  rect(0, 560, 800, 40);
+  rect(0, grassY, 800, 50);
   pop();
-  character(900, characterY, 0.4);
+  character(900, characterY);
 }
 
 function resultScreen() {
-  background(100, 0, 0);
-  text("PLAY AGAIN", 400, 400);
+  background(135, 206, 235);
+  push();
+  noStroke();
+  fill(19, 133, 16);
+  rect(0, grassY, 800, 50);
+  pop();
+  character(900, 939);
+  push();
+  textAlign(CENTER);
+  text("PLAY AGAIN", 400, 200);
+  pop();
 }
 
-function character(x, y, s) {
+function character(x, y) {
   push();
-  scale(s);
+  scale(0.4);
 
   //Jetpack
   fill(119, 119, 119);
@@ -196,9 +207,11 @@ function draw() {
     velocity--;
   }
 
-  if (characterY >= 920) {
+  if (characterY >= 939) {
     velocity = 0;
     acceleration = 0;
+    console.log(characterY);
+    state = "result";
   }
 }
 
