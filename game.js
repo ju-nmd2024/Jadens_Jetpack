@@ -31,7 +31,7 @@ function gameScreen() {
   character(900, characterY);
 }
 
-function resultScreen() {
+function resultScreenWin() {
   background(135, 206, 235);
   push();
   noStroke();
@@ -41,6 +41,22 @@ function resultScreen() {
   character(900, 939);
   push();
   textAlign(CENTER);
+  text("Well done!", 400, 150);
+  text("PLAY AGAIN", 400, 200);
+  pop();
+}
+
+function resultScreenLose() {
+  background(255, 0, 0);
+  push();
+  noStroke();
+  fill(19, 133, 16);
+  rect(0, grassY, 800, 50);
+  pop();
+  character(900, 939);
+  push();
+  textAlign(CENTER);
+  text("You crashed!", 400, 150);
   text("PLAY AGAIN", 400, 200);
   pop();
 }
@@ -219,8 +235,10 @@ function draw() {
     startScreen();
   } else if (state === "game") {
     gameScreen();
-  } else if (state === "result") {
-    resultScreen();
+  } else if (state === "resultWin") {
+    resultScreenWin();
+  } else if (state === "resultLose") {
+    resultScreenLose();
   }
 
   //Gravity
@@ -232,19 +250,26 @@ function draw() {
     velocity--;
   }
 
-  if (characterY >= 939) {
+  if (velocity <= 12 && characterY >= 939) {
     velocity = 0;
     acceleration = 0;
-    state = "result";
+    state = "resultWin";
+  }
+
+  if (velocity >= 10 && characterY >= 939) {
+    state = "resultLose";
   }
 }
 
 function mouseClicked() {
   if (state === "start") {
     state = "game";
-  } else if (state === "game") {
-    state = "result";
-  } else if (state === "result") {
+  } else if (state === "resultWin") {
+    state = "game";
+    characterY = -200;
+    velocity = 0.4;
+    acceleration = 0.4;
+  } else if (state === "resultLose") {
     state = "game";
     characterY = -200;
     velocity = 0.4;
