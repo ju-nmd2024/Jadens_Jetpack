@@ -54,29 +54,54 @@ function character(x, y) {
   rect(x - 18, y, 225, 180);
 
   //Left jetpack flames
-  push();
-  noStroke();
-  fill(255, 0, 0);
-  triangle(x - 110, y + 180, x - 90, y + 180, x - 100, y + 210);
-  triangle(x - 100, y + 180, x - 80, y + 180, x - 90, y + 210);
-  triangle(x - 90, y + 180, x - 70, y + 180, x - 80, y + 210);
-  triangle(x - 80, y + 180, x - 60, y + 180, x - 70, y + 210);
-  pop();
+  if (keyIsDown(32)) {
+    push();
+    noStroke();
+    fill(255, 0, 0);
+    triangle(x - 110, y + 180, x - 90, y + 180, x - 100, y + 210);
+    triangle(x - 100, y + 180, x - 80, y + 180, x - 90, y + 210);
+    triangle(x - 90, y + 180, x - 70, y + 180, x - 80, y + 210);
+    triangle(x - 80, y + 180, x - 60, y + 180, x - 70, y + 210);
+    pop();
+  } else {
+    push();
+    translate(0, -10);
+    noStroke();
+    fill(251, 139, 35);
+    triangle(x - 110, y + 180, x - 90, y + 180, x - 100, y + 210);
+    triangle(x - 100, y + 180, x - 80, y + 180, x - 90, y + 210);
+    triangle(x - 90, y + 180, x - 70, y + 180, x - 80, y + 210);
+    triangle(x - 80, y + 180, x - 60, y + 180, x - 70, y + 210);
+    pop();
+  }
+
+  //Right jetpack flames
+  if (keyIsDown(32)) {
+    push();
+    noStroke();
+    fill(255, 0, 0);
+    translate(360, 0);
+    triangle(x - 110, y + 180, x - 90, y + 180, x - 100, y + 210);
+    triangle(x - 100, y + 180, x - 80, y + 180, x - 90, y + 210);
+    triangle(x - 90, y + 180, x - 70, y + 180, x - 80, y + 210);
+    triangle(x - 80, y + 180, x - 60, y + 180, x - 70, y + 210);
+    pop();
+  } else {
+    push();
+    translate(0, -10);
+    noStroke();
+    fill(251, 139, 35);
+    translate(360, 0);
+    triangle(x - 110, y + 180, x - 90, y + 180, x - 100, y + 210);
+    triangle(x - 100, y + 180, x - 80, y + 180, x - 90, y + 210);
+    triangle(x - 90, y + 180, x - 70, y + 180, x - 80, y + 210);
+    triangle(x - 80, y + 180, x - 60, y + 180, x - 70, y + 210);
+    pop();
+  }
 
   //Left jetpack thruster
   fill(119, 119, 119);
   rect(x - 115, y + 166, 60, 15);
-
-  //Right jetpack flames
-  push();
-  noStroke();
-  fill(255, 0, 0);
-  translate(360, 0);
-  triangle(x - 110, y + 180, x - 90, y + 180, x - 100, y + 210);
-  triangle(x - 100, y + 180, x - 80, y + 180, x - 90, y + 210);
-  triangle(x - 90, y + 180, x - 70, y + 180, x - 80, y + 210);
-  triangle(x - 80, y + 180, x - 60, y + 180, x - 70, y + 210);
-  pop();
 
   //Right jetpack thruster
   fill(119, 119, 119);
@@ -210,7 +235,6 @@ function draw() {
   if (characterY >= 939) {
     velocity = 0;
     acceleration = 0;
-    console.log(characterY);
     state = "result";
   }
 }
