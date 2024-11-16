@@ -1,9 +1,11 @@
 let state = "start";
-let characterX = 1190;
-let characterY = -200;
 let velocity = 0.4;
 let acceleration = 0.2;
 let grassY = 563;
+
+//Character
+let characterX = 1190;
+let characterY = -200;
 
 //Text
 let buttonText = {
@@ -17,7 +19,7 @@ let resultText = {
 };
 
 function setup() {
-  createCanvas(1000, 600);
+  createCanvas(1000, 680);
   frameRate(60);
   textAlign(CENTER);
 }
@@ -25,16 +27,17 @@ function setup() {
 function startScreen() {
   background(135, 206, 235);
   push();
-  rectMode(CENTER);
-  rect(width / 2, 355, 150, 50, 10);
-  pop();
-  push();
   textSize(65);
   text("JADEN'S JETPACK", width / 2, 280);
   pop();
+  push();
+  strokeWeight(2);
+  rectMode(CENTER);
+  rect(width / 2, 355, 150, 50, 10);
   textSize(buttonText.start);
   text("START", width / 2, 370);
   velocity = 0;
+  pop();
 }
 
 function gameScreen() {
@@ -42,9 +45,9 @@ function gameScreen() {
   background(135, 206, 235);
 
   //Grass
-  fill(19, 133, 16);
+  fill(38, 139, 7);
   noStroke();
-  rect(0, grassY, width, 50);
+  rect(0, grassY, width, 120);
   pop();
   character(characterX, characterY);
 }
@@ -53,9 +56,10 @@ function resultScreenWin() {
   velocity = 0;
   push();
   background(135, 206, 235);
+  //Grass
   noStroke();
-  fill(19, 133, 16);
-  rect(0, grassY, width, 50);
+  fill(38, 139, 7);
+  rect(0, grassY, width, 120);
   pop();
   character(characterX, 939);
   push();
@@ -108,8 +112,8 @@ function resultScreenLose() {
   push();
   background(135, 206, 235);
   noStroke();
-  fill(19, 133, 16);
-  rect(0, grassY, width, 50);
+  fill(38, 139, 7);
+  rect(0, grassY, width, 120);
   pop();
   push();
   translate(900, 0);
@@ -162,10 +166,11 @@ function resultScreenLose() {
 function character(x, y) {
   push();
   scale(0.4);
+  strokeWeight(2);
 
   //Jetpack
-  fill(119, 119, 119);
-  rect(x - 18, y, 225, 180);
+  fill(200, 200, 200);
+  rect(x - 18, y, 225, 180, 2);
 
   //Left jetpack flames
   if (keyIsDown(32)) {
@@ -224,8 +229,10 @@ function character(x, y) {
   //Jetpack wings
   push();
   fill(200, 200, 200);
-  triangle(x - 18, y, x - 140, y + 170, x - 18, y + 170);
-  triangle(x + 207, y, x + 330, y + 170, x + 207, y + 170);
+  //Left wing
+  triangle(x - 18, y + 2, x - 140, y + 170, x + 230, y + 170);
+  //Right wing
+  triangle(x + 207, y + 2, x + 330, y + 170, x - 34, y + 170);
   pop();
 
   //Left arm
@@ -234,7 +241,7 @@ function character(x, y) {
   rotate(0.2);
   fill(224, 172, 105);
   ellipse(238, 618, 30);
-  fill(6, 64, 43);
+  fill(23, 77, 36);
   rect(220, 420, 35, 200);
   pop();
 
@@ -244,15 +251,14 @@ function character(x, y) {
   rotate(-0.2);
   fill(224, 172, 105);
   ellipse(238, 618, 30);
-  fill(6, 64, 43);
+  fill(23, 77, 36);
   rect(220, 420, 35, 200);
   pop();
 
   //Shirt
   push();
-  fill(6, 64, 43);
+  fill(23, 77, 36);
   rect(x, y, 190, 270, 20, 20, 0);
-  fill(224, 172, 105);
   pop();
 
   //Feet
@@ -262,7 +268,7 @@ function character(x, y) {
 
   //Pants
   push();
-  fill(0, 100, 255);
+  fill(23, 77, 36);
   rect(x, y + 270, 190, 180);
   line(x, y + 270, x + 190, y + 270);
   line(x + 95, y + 320, x + 95, y + 448);
@@ -311,21 +317,48 @@ function character(x, y) {
   pop();
 
   //Glasses
-  push();
-  strokeWeight(4);
-  line(x + 18, y - 60, x + 173, y - 60);
-  strokeWeight(7);
-  fill(255, 255, 255);
-  ellipse(x + 60, y - 60, 40);
-  ellipse(x + 60, y - 60, 30);
-  ellipse(x + 130, y - 60, 40);
-  ellipse(x + 130, y - 60, 30);
-  pop();
+  if (state === "resultLose") {
+    push();
+    strokeWeight(4);
+    line(x + 18, y - 60, x + 173, y - 60);
+    strokeWeight(7);
+    fill(100, 100, 100);
+    ellipse(x + 60, y - 60, 45, 40);
+    ellipse(x + 130, y - 60, 45, 40);
+    ellipse(x + 60, y - 60, 40);
+    ellipse(x + 130, y - 60, 40);
+    pop();
+    push();
+    strokeWeight(7);
+    stroke(255, 0, 0);
+    line(x + 40, y - 80, x + 80, y - 40);
+    line(x + 80, y - 80, x + 40, y - 40);
+    pop();
+    push();
+    translate(70, 0);
+    strokeWeight(7);
+    stroke(255, 0, 0);
+    line(x + 40, y - 80, x + 80, y - 40);
+    line(x + 80, y - 80, x + 40, y - 40);
+    pop();
+    pop();
+  } else {
+    push();
+    strokeWeight(4);
+    line(x + 18, y - 60, x + 173, y - 60);
+    strokeWeight(7);
+    fill(100, 100, 100);
+    ellipse(x + 60, y - 60, 45, 40);
+    ellipse(x + 130, y - 60, 45, 40);
+    ellipse(x + 60, y - 60, 40);
+    ellipse(x + 130, y - 60, 40);
+    pop();
 
-  //Mouth
-  fill(234, 118, 118);
-  ellipse(x + 95, y, 30, 20);
-  pop();
+    //Mouth
+    fill(234, 118, 118);
+    ellipse(x + 95, y, 30, 20);
+    pop();
+  }
 }
 
 function draw() {
