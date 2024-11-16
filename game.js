@@ -1,4 +1,4 @@
-let state = "start";
+let state = "resultWin";
 let characterY = -200;
 let velocity = 0.4;
 let acceleration = 0.4;
@@ -189,10 +189,10 @@ function character(x, y) {
 
   //Feet
   fill(0, 0, 0);
-  ellipse(x + 48, y + 455, 80, 30);
-  ellipse(x + 143, y + 455, 80, 30);
+  arc(x + 48, y + 467, 90, 50, PI, TWO_PI, CHORD);
+  arc(x + 143, y + 467, 90, 50, PI, TWO_PI, CHORD);
 
-  //Pants
+  // //Pants
   push();
   fill(0, 100, 255);
   rect(x, y + 270, 190, 180);
@@ -281,14 +281,14 @@ function draw() {
   }
 
   //Checks for win condition
-  if (velocity <= 12 && characterY >= 939) {
+  if (velocity <= 9 && characterY >= 939) {
     velocity = 0;
     acceleration = 0;
     state = "resultWin";
   }
 
   //Checks for lose condition
-  if (velocity >= 10 && characterY >= 939) {
+  if (velocity >= 9 && characterY >= 939) {
     state = "resultLose";
   }
 }
@@ -302,6 +302,22 @@ function mouseClicked() {
     velocity = 0.4;
     acceleration = 0.4;
   } else if (state === "resultLose") {
+    state = "game";
+    characterY = -200;
+    velocity = 0.4;
+    acceleration = 0.4;
+  }
+}
+
+function keyPressed() {
+  if (state === "start" && keyIsDown(32)) {
+    state = "game";
+  } else if (state === "resultWin" && keyIsDown(32)) {
+    state = "game";
+    characterY = -200;
+    velocity = 0.4;
+    acceleration = 0.4;
+  } else if (state === "resultLose" && keyIsDown(32)) {
     state = "game";
     characterY = -200;
     velocity = 0.4;
