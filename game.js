@@ -1,70 +1,107 @@
-let state = "resultWin";
+let state = "start";
+let characterX = 1190;
 let characterY = -200;
 let velocity = 0.4;
-let acceleration = 0.4;
+let acceleration = 0.2;
 let grassY = 563;
 
 //Text
-let startText = 40;
+let buttonText = {
+  start: 40,
+  restart: 30,
+  menu: 18,
+};
 let resultText = {
   big: 60,
-  small: 30,
+  small: 25,
 };
 
 function setup() {
-  createCanvas(800, 600);
+  createCanvas(1000, 600);
   frameRate(60);
   textAlign(CENTER);
 }
 
 function startScreen() {
-  background(200, 200, 200);
+  background(135, 206, 235);
+  push();
+  rectMode(CENTER);
+  rect(width / 2, 355, 150, 50, 10);
+  pop();
   push();
   textSize(65);
-  text("JADEN'S JETPACK", 400, 280);
+  text("JADEN'S JETPACK", width / 2, 280);
   pop();
-  textSize(startText);
-  text("START", 400, 340);
+  textSize(buttonText.start);
+  text("START", width / 2, 370);
   velocity = 0;
 }
 
 function gameScreen() {
-  background(135, 206, 235);
   push();
-  noStroke();
+  background(135, 206, 235);
+
+  //Grass
   fill(19, 133, 16);
-  rect(0, grassY, 800, 50);
+  noStroke();
+  rect(0, grassY, width, 50);
   pop();
-  character(900, characterY);
+  character(characterX, characterY);
 }
 
 function resultScreenWin() {
+  velocity = 0;
   push();
   background(135, 206, 235);
-  push();
   noStroke();
   fill(19, 133, 16);
-  rect(0, grassY, 800, 50);
+  rect(0, grassY, width, 50);
   pop();
-  character(900, 939);
+  character(characterX, 939);
+  push();
+  rectMode(CENTER);
+  rect(width / 2, 280, 160, 45, 10);
+  pop();
 
   //Big win text
   push();
+  rectMode(CENTER);
+  noStroke();
+  fill(0, 180, 0);
+  rect(width / 2, 175, 380, 100, 10);
+  push();
+  fill(255);
   textSize(resultText.big);
-  text("WELL DONE", 400, 150);
+  text("WELL DONE", width / 2, 180);
+  pop();
   pop();
 
   //Small win text
   push();
+  fill(255);
   textSize(resultText.small);
-  text("That landing was smooth!", 400, 190);
+  text("That landing was smooth!", width / 2, 210);
   pop();
 
-  //Restart text
+  //Restart button
   push();
-  textSize(startText);
-  text("RESTART", 400, 300);
+  rectMode(CENTER);
+  fill(255);
+  strokeWeight(2);
+  rect(width / 2, 280, 160, 45, 10);
   pop();
+  textSize(buttonText.restart);
+  text("RESTART", width / 2, 292);
+
+  //Menu button
+  push();
+  rectMode(CENTER);
+  strokeWeight(2);
+  fill(255);
+  rect(960, 18, 70, 25, 10);
+  pop();
+  textSize(buttonText.menu);
+  text("MENU", 960, 25);
 }
 
 function resultScreenLose() {
@@ -72,23 +109,54 @@ function resultScreenLose() {
   background(135, 206, 235);
   noStroke();
   fill(19, 133, 16);
-  rect(0, grassY, 800, 50);
+  rect(0, grassY, width, 50);
   pop();
-  character(900, 939);
+  push();
+  translate(900, 0);
+  scale(1);
+  rotate(1.4);
+  character(characterX, 939);
+  pop();
 
   //Big lose text
+  push();
+  rectMode(CENTER);
+  noStroke();
+  fill(255, 0, 0);
+  rect(width / 2, 175, 460, 100, 10);
+  push();
+  fill(255);
   textSize(resultText.big);
-  text("YOU CRASHED", 400, 150);
+  text("YOU CRASHED", width / 2, 180);
+  pop();
+  pop();
 
   //Small lose text
   push();
+  fill(255);
   textSize(resultText.small);
-  text("Better luck next time", 400, 190);
+  text("Better luck next time", width / 2, 210);
   pop();
 
-  //Restart text
-  textSize(startText);
-  text("RESTART", 400, 300);
+  //Restart button
+  push();
+  rectMode(CENTER);
+  fill(255);
+  strokeWeight(2);
+  rect(width / 2, 280, 160, 45, 10);
+  pop();
+  textSize(buttonText.restart);
+  text("RESTART", width / 2, 292);
+
+  //Menu button
+  push();
+  rectMode(CENTER);
+  strokeWeight(2);
+  fill(255);
+  rect(960, 18, 70, 25, 10);
+  pop();
+  textSize(buttonText.menu);
+  text("MENU", 960, 25);
 }
 
 function character(x, y) {
@@ -103,7 +171,7 @@ function character(x, y) {
   if (keyIsDown(32)) {
     push();
     noStroke();
-    fill(255, 0, 0);
+    fill(255, 64, 0);
     triangle(x - 110, y + 180, x - 90, y + 180, x - 100, y + 210);
     triangle(x - 100, y + 180, x - 80, y + 180, x - 90, y + 210);
     triangle(x - 90, y + 180, x - 70, y + 180, x - 80, y + 210);
@@ -113,7 +181,7 @@ function character(x, y) {
     push();
     translate(0, -10);
     noStroke();
-    fill(251, 139, 35);
+    fill(255, 165, 0);
     triangle(x - 110, y + 180, x - 90, y + 180, x - 100, y + 210);
     triangle(x - 100, y + 180, x - 80, y + 180, x - 90, y + 210);
     triangle(x - 90, y + 180, x - 70, y + 180, x - 80, y + 210);
@@ -125,7 +193,7 @@ function character(x, y) {
   if (keyIsDown(32)) {
     push();
     noStroke();
-    fill(255, 0, 0);
+    fill(255, 64, 0);
     translate(360, 0);
     triangle(x - 110, y + 180, x - 90, y + 180, x - 100, y + 210);
     triangle(x - 100, y + 180, x - 80, y + 180, x - 90, y + 210);
@@ -136,7 +204,7 @@ function character(x, y) {
     push();
     translate(0, -10);
     noStroke();
-    fill(251, 139, 35);
+    fill(255, 165, 0);
     translate(360, 0);
     triangle(x - 110, y + 180, x - 90, y + 180, x - 100, y + 210);
     triangle(x - 100, y + 180, x - 80, y + 180, x - 90, y + 210);
@@ -192,7 +260,7 @@ function character(x, y) {
   arc(x + 48, y + 467, 90, 50, PI, TWO_PI, CHORD);
   arc(x + 143, y + 467, 90, 50, PI, TWO_PI, CHORD);
 
-  // //Pants
+  //Pants
   push();
   fill(0, 100, 255);
   rect(x, y + 270, 190, 180);
