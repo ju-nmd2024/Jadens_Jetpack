@@ -5,27 +5,26 @@ let acceleration = 0.4;
 let grassY = 563;
 
 //Text
-let bigResultText = 60;
-let smallResultText = 30;
 let startText = 40;
+let resultText = {
+  big: 60,
+  small: 30,
+};
 
 function setup() {
   createCanvas(800, 600);
   frameRate(60);
+  textAlign(CENTER);
 }
 
 function startScreen() {
   background(200, 200, 200);
   push();
-  textAlign(CENTER);
-  textSize(80);
-  text("GAME TITLE", 400, 280);
+  textSize(65);
+  text("JADEN'S JETPACK", 400, 280);
   pop();
-  push();
-  textAlign(CENTER);
   textSize(startText);
   text("START", 400, 340);
-  pop();
   velocity = 0;
 }
 
@@ -51,21 +50,18 @@ function resultScreenWin() {
 
   //Big win text
   push();
-  textAlign(CENTER);
-  textSize(bigResultText);
+  textSize(resultText.big);
   text("WELL DONE", 400, 150);
   pop();
 
   //Small win text
   push();
-  textAlign(CENTER);
-  textSize(smallResultText);
+  textSize(resultText.small);
   text("That landing was smooth!", 400, 190);
   pop();
 
   //Restart text
   push();
-  textAlign(CENTER);
   textSize(startText);
   text("RESTART", 400, 300);
   pop();
@@ -81,25 +77,18 @@ function resultScreenLose() {
   character(900, 939);
 
   //Big lose text
-  push();
-  textAlign(CENTER);
-  textSize(bigResultText);
+  textSize(resultText.big);
   text("YOU CRASHED", 400, 150);
-  pop();
 
   //Small lose text
   push();
-  textAlign(CENTER);
-  textSize(smallResultText);
+  textSize(resultText.small);
   text("Better luck next time", 400, 190);
   pop();
 
   //Restart text
-  push();
-  textAlign(CENTER);
   textSize(startText);
   text("RESTART", 400, 300);
-  pop();
 }
 
 function character(x, y) {
@@ -291,12 +280,14 @@ function draw() {
     velocity--;
   }
 
+  //Checks for win condition
   if (velocity <= 12 && characterY >= 939) {
     velocity = 0;
     acceleration = 0;
     state = "resultWin";
   }
 
+  //Checks for lose condition
   if (velocity >= 10 && characterY >= 939) {
     state = "resultLose";
   }
