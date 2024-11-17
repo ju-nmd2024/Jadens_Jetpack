@@ -29,12 +29,14 @@ function startScreen() {
   //Background
   background(135, 206, 235);
 
-  //Title text
+  //Title text background
   push();
   fill(0);
   rectMode(CENTER);
   rect(500, 275, 640, 70, 10);
   pop();
+
+  //Title text
   push();
   fill(255);
   textSize(70);
@@ -42,25 +44,29 @@ function startScreen() {
   pop();
 
   if (mouseX >= 425 && mouseX <= 575 && mouseY >= 333 && mouseY <= 380) {
-    //Start button hover
+    //Start button background hover
     push();
     rectMode(CENTER);
     strokeWeight(2);
     fill(200);
     rect(500, 360, 150, 50, 10);
     pop();
+
+    //Start button text hover
     push();
     textSize(buttonText.start);
     text("START", 500, 375);
     pop();
   } else {
-    //Start button
+    //Start button background
     push();
     rectMode(CENTER);
     strokeWeight(2);
     fill(255);
     rect(500, 360, 150, 50, 10);
     pop();
+
+    //Start button text
     push();
     textSize(buttonText.start);
     text("START", 500, 375);
@@ -151,7 +157,7 @@ function gameScreen() {
     push();
     rectMode(CENTER);
     strokeWeight(2);
-    fill(200, 200, 200);
+    fill(200);
     rect(960, 18, 70, 25, 10);
     pop();
     textSize(buttonText.menu);
@@ -185,7 +191,7 @@ function resultScreenWin() {
     push();
     rectMode(CENTER);
     strokeWeight(2);
-    fill(200, 200, 200);
+    fill(200);
     rect(960, 18, 70, 25, 10);
     pop();
     textSize(buttonText.menu);
@@ -204,11 +210,7 @@ function resultScreenWin() {
   //Clouds
   push();
   cloudRight(0, 10);
-  pop();
-  push();
   cloudLeft(-400, 30);
-  pop();
-  push();
   cloudLeft(-290, 2);
   pop();
 
@@ -248,7 +250,7 @@ function resultScreenWin() {
     push();
     rectMode(CENTER);
     strokeWeight(2);
-    fill(200, 200, 200);
+    fill(200);
     rect(500, 280, 160, 45, 10);
     pop();
     push();
@@ -402,8 +404,8 @@ function character(x, y) {
   scale(0.4);
   strokeWeight(2);
 
-  //Jetpack
-  fill(200, 200, 200);
+  //Jetpack centerpiece
+  fill(200);
   rect(x - 18, y, 225, 180, 2);
 
   //Left jetpack flames
@@ -662,6 +664,13 @@ function draw() {
     velocity--;
   }
 
+  //Height limit
+  if (characterY <= -400) {
+    characterY = -400;
+    velocity = 0.4;
+    acceleration = 0.2;
+  }
+
   //Checks for win condition
   if (velocity <= 9 && characterY >= 939 && state === "game") {
     velocity = 0;
@@ -669,13 +678,6 @@ function draw() {
     state = "resultWin";
   } else if (velocity >= 9 && characterY >= 939) {
     state = "resultLose";
-  }
-
-  //Height limit
-  if (characterY <= -400) {
-    characterY = -400;
-    velocity = 0.4;
-    acceleration = 0.2;
   }
 }
 
