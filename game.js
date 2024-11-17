@@ -25,19 +25,36 @@ function setup() {
 }
 
 function startScreen() {
-  background(135, 206, 235);
-  push();
-  textSize(65);
-  text("JADEN'S JETPACK", width / 2, 280);
-  pop();
-  push();
-  strokeWeight(2);
-  rectMode(CENTER);
-  rect(width / 2, 355, 150, 50, 10);
-  textSize(buttonText.start);
-  text("START", width / 2, 370);
   velocity = 0;
-  pop();
+  background(135, 206, 235);
+  if (mouseX >= 440 && mouseX <= 590 && mouseY >= 375 && mouseY <= 425) {
+    push();
+    textSize(70);
+    text("JADEN'S JETPACK", width / 2, 300);
+    pop();
+    push();
+    push();
+    fill(220, 220, 220);
+    strokeWeight(2);
+    rectMode(CENTER);
+    rect(width / 2, 400, 150, 50, 10);
+    pop();
+    textSize(buttonText.start);
+    text("START", width / 2, 414);
+    pop();
+  } else {
+    push();
+    textSize(70);
+    text("JADEN'S JETPACK", width / 2, 300);
+    pop();
+    push();
+    strokeWeight(2);
+    rectMode(CENTER);
+    rect(width / 2, 400, 150, 50, 10);
+    textSize(buttonText.start);
+    text("START", width / 2, 414);
+    pop();
+  }
 }
 
 function gameScreen() {
@@ -50,6 +67,27 @@ function gameScreen() {
   rect(0, grassY, width, 120);
   pop();
   character(characterX, characterY);
+
+  //Menu button
+  if (mouseX >= 925 && mouseX <= 994 && mouseY >= 5 && mouseY <= 28) {
+    push();
+    rectMode(CENTER);
+    strokeWeight(2);
+    fill(200, 200, 200);
+    rect(960, 18, 70, 25, 10);
+    pop();
+    textSize(buttonText.menu);
+    text("MENU", 960, 25);
+  } else {
+    push();
+    rectMode(CENTER);
+    strokeWeight(2);
+    fill(255);
+    rect(960, 18, 70, 25, 10);
+    pop();
+    textSize(buttonText.menu);
+    text("MENU", 960, 25);
+  }
 }
 
 function resultScreenWin() {
@@ -88,24 +126,46 @@ function resultScreenWin() {
   pop();
 
   //Restart button
-  push();
-  rectMode(CENTER);
-  fill(255);
-  strokeWeight(2);
-  rect(width / 2, 280, 160, 45, 10);
-  pop();
-  textSize(buttonText.restart);
-  text("RESTART", width / 2, 292);
+  if (mouseX >= 435 && mouseX <= 595 && mouseY >= 255 && mouseY <= 300) {
+    push();
+    rectMode(CENTER);
+    fill(200, 200, 200);
+    strokeWeight(2);
+    rect(width / 2, 280, 160, 45, 10);
+    pop();
+    textSize(buttonText.restart);
+    text("RESTART", width / 2, 292);
+  } else {
+    push();
+    rectMode(CENTER);
+    fill(255);
+    strokeWeight(2);
+    rect(width / 2, 280, 160, 45, 10);
+    pop();
+    textSize(buttonText.restart);
+    text("RESTART", width / 2, 292);
+  }
 
   //Menu button
-  push();
-  rectMode(CENTER);
-  strokeWeight(2);
-  fill(255);
-  rect(960, 18, 70, 25, 10);
-  pop();
-  textSize(buttonText.menu);
-  text("MENU", 960, 25);
+  if (mouseX >= 925 && mouseX <= 994 && mouseY >= 5 && mouseY <= 28) {
+    push();
+    rectMode(CENTER);
+    strokeWeight(2);
+    fill(200, 200, 200);
+    rect(960, 18, 70, 25, 10);
+    pop();
+    textSize(buttonText.menu);
+    text("MENU", 960, 25);
+  } else {
+    push();
+    rectMode(CENTER);
+    strokeWeight(2);
+    fill(255);
+    rect(960, 18, 70, 25, 10);
+    pop();
+    textSize(buttonText.menu);
+    text("MENU", 960, 25);
+  }
 }
 
 function resultScreenLose() {
@@ -143,24 +203,46 @@ function resultScreenLose() {
   pop();
 
   //Restart button
-  push();
-  rectMode(CENTER);
-  fill(255);
-  strokeWeight(2);
-  rect(width / 2, 280, 160, 45, 10);
-  pop();
-  textSize(buttonText.restart);
-  text("RESTART", width / 2, 292);
+  if (mouseX >= 435 && mouseX <= 595 && mouseY >= 255 && mouseY <= 300) {
+    push();
+    rectMode(CENTER);
+    fill(200, 200, 200);
+    strokeWeight(2);
+    rect(width / 2, 280, 160, 45, 10);
+    pop();
+    textSize(buttonText.restart);
+    text("RESTART", width / 2, 292);
+  } else {
+    push();
+    rectMode(CENTER);
+    fill(255);
+    strokeWeight(2);
+    rect(width / 2, 280, 160, 45, 10);
+    pop();
+    textSize(buttonText.restart);
+    text("RESTART", width / 2, 292);
+  }
 
   //Menu button
-  push();
-  rectMode(CENTER);
-  strokeWeight(2);
-  fill(255);
-  rect(960, 18, 70, 25, 10);
-  pop();
-  textSize(buttonText.menu);
-  text("MENU", 960, 25);
+  if (mouseX >= 925 && mouseX <= 994 && mouseY >= 5 && mouseY <= 28) {
+    push();
+    rectMode(CENTER);
+    strokeWeight(2);
+    fill(200, 200, 200);
+    rect(960, 18, 70, 25, 10);
+    pop();
+    textSize(buttonText.menu);
+    text("MENU", 960, 25);
+  } else {
+    push();
+    rectMode(CENTER);
+    strokeWeight(2);
+    fill(255);
+    rect(960, 18, 70, 25, 10);
+    pop();
+    textSize(buttonText.menu);
+    text("MENU", 960, 25);
+  }
 }
 
 function character(x, y) {
@@ -382,7 +464,7 @@ function draw() {
   }
 
   //Checks for win condition
-  if (velocity <= 9 && characterY >= 939) {
+  if (velocity <= 9 && characterY >= 939 && state === "game") {
     velocity = 0;
     acceleration = 0;
     state = "resultWin";
@@ -395,33 +477,75 @@ function draw() {
 }
 
 function mouseClicked() {
-  if (state === "start") {
+  if (
+    state === "start" &&
+    mouseX >= 440 &&
+    mouseX <= 590 &&
+    mouseY >= 375 &&
+    mouseY <= 425
+  ) {
     state = "game";
-  } else if (state === "resultWin") {
+  } else if (
+    state === "game" &&
+    mouseX >= 925 &&
+    mouseX <= 994 &&
+    mouseY >= 5 &&
+    mouseY <= 28
+  ) {
+    state = "start";
+  } else if (
+    state === "resultWin" &&
+    mouseX >= 435 &&
+    mouseX <= 595 &&
+    mouseY >= 255 &&
+    mouseY <= 300
+  ) {
     state = "game";
     characterY = -200;
     velocity = 0.4;
-    acceleration = 0.4;
-  } else if (state === "resultLose") {
+    acceleration = 0.2;
+  } else if (
+    state === "resultLose" &&
+    mouseX >= 435 &&
+    mouseX <= 595 &&
+    mouseY >= 255 &&
+    mouseY <= 300
+  ) {
     state = "game";
     characterY = -200;
     velocity = 0.4;
-    acceleration = 0.4;
+    acceleration = 0.2;
+  } else if (
+    state === "resultWin" &&
+    mouseX >= 925 &&
+    mouseX <= 994 &&
+    mouseY >= 5 &&
+    mouseY <= 28
+  ) {
+    state = "start";
+  } else if (
+    state === "resultLose" &&
+    mouseX >= 925 &&
+    mouseX <= 994 &&
+    mouseY >= 5 &&
+    mouseY <= 28
+  ) {
+    state = "start";
   }
 }
 
 function keyPressed() {
   if (state === "start" && keyIsDown(32)) {
     state = "game";
-  } else if (state === "resultWin" && keyIsDown(32)) {
+  } else if (state === "resultWin" && keyIsDown(67)) {
     state = "game";
     characterY = -200;
     velocity = 0.4;
-    acceleration = 0.4;
-  } else if (state === "resultLose" && keyIsDown(32)) {
+    acceleration = 0.2;
+  } else if (state === "resultLose" && keyIsDown(67)) {
     state = "game";
     characterY = -200;
     velocity = 0.4;
-    acceleration = 0.4;
+    acceleration = 0.2;
   }
 }
