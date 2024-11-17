@@ -1,11 +1,13 @@
 let state = "start";
-let velocity = 0.4;
-let acceleration = 0.2;
 let grassY = 563;
 
-//Character
+//Gravity variables
+let velocity = 0.4;
+let acceleration = 0.2;
+
+//Character variables
 let characterX = 1190;
-let characterY = -200;
+let characterY = -300;
 
 //Text
 let buttonText = {
@@ -55,9 +57,16 @@ function startScreen() {
     text("START", width / 2, 414);
     pop();
   }
+  push();
+  //Grass
+  noStroke();
+  fill(38, 139, 7);
+  rect(0, grassY, width, 120);
+  pop();
 }
 
 function gameScreen() {
+  //Background
   push();
   background(135, 206, 235);
 
@@ -66,6 +75,8 @@ function gameScreen() {
   noStroke();
   rect(0, grassY, width, 120);
   pop();
+
+  //Character
   character(characterX, characterY);
 
   //Menu button
@@ -111,11 +122,11 @@ function resultScreenWin() {
   noStroke();
   fill(0, 180, 0);
   rect(width / 2, 175, 380, 100, 10);
+  pop();
   push();
   fill(255);
   textSize(resultText.big);
   text("WELL DONE", width / 2, 180);
-  pop();
   pop();
 
   //Small win text
@@ -166,6 +177,13 @@ function resultScreenWin() {
     textSize(buttonText.menu);
     text("MENU", 960, 25);
   }
+
+  //Tip message
+  push();
+  noStroke();
+  rect(26, 600, 377, 40, 10);
+  text("Tip: Pressing the C key will restart the game", 215, 625);
+  pop();
 }
 
 function resultScreenLose() {
@@ -243,6 +261,13 @@ function resultScreenLose() {
     textSize(buttonText.menu);
     text("MENU", 960, 25);
   }
+
+  //Tip message
+  push();
+  noStroke();
+  rect(26, 600, 377, 40, 10);
+  text("Tip: Pressing the C key will restart the game", 215, 625);
+  pop();
 }
 
 function character(x, y) {
@@ -485,6 +510,9 @@ function mouseClicked() {
     mouseY <= 425
   ) {
     state = "game";
+    characterY = -300;
+    velocity = 0.4;
+    acceleration = 0.2;
   } else if (
     state === "game" &&
     mouseX >= 925 &&
@@ -501,7 +529,7 @@ function mouseClicked() {
     mouseY <= 300
   ) {
     state = "game";
-    characterY = -200;
+    characterY = -300;
     velocity = 0.4;
     acceleration = 0.2;
   } else if (
@@ -512,7 +540,7 @@ function mouseClicked() {
     mouseY <= 300
   ) {
     state = "game";
-    characterY = -200;
+    characterY = -300;
     velocity = 0.4;
     acceleration = 0.2;
   } else if (
@@ -535,16 +563,19 @@ function mouseClicked() {
 }
 
 function keyPressed() {
-  if (state === "start" && keyIsDown(32)) {
+  if (state === "start" && keyIsDown(67)) {
     state = "game";
+    characterY = -300;
+    velocity = 0.4;
+    acceleration = 0.2;
   } else if (state === "resultWin" && keyIsDown(67)) {
     state = "game";
-    characterY = -200;
+    characterY = -300;
     velocity = 0.4;
     acceleration = 0.2;
   } else if (state === "resultLose" && keyIsDown(67)) {
     state = "game";
-    characterY = -200;
+    characterY = -300;
     velocity = 0.4;
     acceleration = 0.2;
   }
