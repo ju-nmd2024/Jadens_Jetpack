@@ -1,10 +1,15 @@
-//Game
-let state = "start";
+/*
+This is Jaden's Jetpack which is my version of a lunar lander game.
+Made by Emil Eriksson
+*/
+
+//Game state and gravity
+let state = "resultWin";
 let velocity = 0.4;
 let acceleration = 0.2;
 
 //Character
-let characterX = 1190;
+let characterX = 1160;
 let characterY = -350;
 
 //Text
@@ -24,382 +29,6 @@ function setup() {
   textAlign(CENTER);
 }
 
-function startScreen() {
-  velocity = 0;
-  //Background
-  background(135, 206, 235);
-
-  //Title text background
-  push();
-  fill(0);
-  rectMode(CENTER);
-  rect(500, 275, 640, 70, 10);
-  pop();
-
-  //Title text
-  push();
-  fill(255);
-  textSize(70);
-  text("JADEN'S JETPACK", 500, 300);
-  pop();
-
-  if (mouseX >= 425 && mouseX <= 575 && mouseY >= 333 && mouseY <= 380) {
-    //Start button background hover
-    push();
-    rectMode(CENTER);
-    strokeWeight(2);
-    fill(200);
-    rect(500, 360, 150, 50, 10);
-    pop();
-
-    //Start button text hover
-    push();
-    textSize(buttonText.start);
-    text("START", 500, 375);
-    pop();
-  } else {
-    //Start button background
-    push();
-    rectMode(CENTER);
-    strokeWeight(2);
-    fill(255);
-    rect(500, 360, 150, 50, 10);
-    pop();
-
-    //Start button text
-    push();
-    textSize(buttonText.start);
-    text("START", 500, 375);
-    pop();
-  }
-
-  //Game description box
-  push();
-  rectMode(CENTER);
-  strokeWeight(2);
-  rect(500, 480, 368, 140, 10);
-  pop();
-
-  //Game description text
-  push();
-  textSize(20);
-  textAlign(LEFT);
-  text(
-    "Jaden invented a jetpack and took it for a test ride. There's only one problem: he doesn't know how to land! Use the spacebar to control the jetpack thrust and help him land safely.",
-    325,
-    420,
-    362
-  );
-  pop();
-
-  //Clouds
-  push();
-  cloudRight(0, 10);
-  pop();
-  push();
-  cloudLeft(-400, 30);
-  pop();
-  push();
-  cloudLeft(-290, 2);
-  pop();
-
-  //Birds
-  for (let i = 0; i < 5; i++) {
-    bird(i * 200, i * 100, 20, 20);
-  }
-  push();
-  translate(240, 0);
-  for (let i = 0; i < 5; i++) {
-    bird(i * -200, i * 100, 20, 20);
-  }
-  pop();
-
-  //Grass
-  push();
-  noStroke();
-  fill(38, 139, 7);
-  rect(0, 563, width, 120);
-  pop();
-}
-
-function gameScreen() {
-  //Background
-  push();
-  background(135, 206, 235);
-
-  //Birds
-  for (let i = 0; i < 5; i++) {
-    bird(i * 200, i * 100, 20, 20);
-  }
-  push();
-  translate(240, 0);
-  for (let i = 0; i < 5; i++) {
-    bird(i * -200, i * 100, 20, 20);
-  }
-  pop();
-
-  //Clouds
-  push();
-  cloudRight(0, 10);
-  pop();
-  push();
-  cloudLeft(-400, 30);
-  pop();
-  push();
-  cloudLeft(-290, 2);
-  pop();
-
-  //Character
-  character(characterX, characterY);
-
-  //Menu button
-  if (mouseX >= 925 && mouseX <= 994 && mouseY >= 5 && mouseY <= 28) {
-    push();
-    rectMode(CENTER);
-    strokeWeight(2);
-    fill(200);
-    rect(960, 18, 70, 25, 10);
-    pop();
-    textSize(buttonText.menu);
-    text("MENU", 960, 25);
-  } else {
-    push();
-    rectMode(CENTER);
-    strokeWeight(2);
-    fill(255);
-    rect(960, 18, 70, 25, 10);
-    pop();
-    textSize(buttonText.menu);
-    text("MENU", 960, 25);
-  }
-
-  //Grass
-  push();
-  fill(38, 139, 7);
-  noStroke();
-  rect(0, 563, width, 120);
-  pop();
-}
-
-function resultScreenWin() {
-  velocity = 0;
-  push();
-  background(135, 206, 235);
-
-  //Menu button
-  if (mouseX >= 925 && mouseX <= 994 && mouseY >= 5 && mouseY <= 28) {
-    push();
-    rectMode(CENTER);
-    strokeWeight(2);
-    fill(200);
-    rect(960, 18, 70, 25, 10);
-    pop();
-    textSize(buttonText.menu);
-    text("MENU", 960, 25);
-  } else {
-    push();
-    rectMode(CENTER);
-    strokeWeight(2);
-    fill(255);
-    rect(960, 18, 70, 25, 10);
-    pop();
-    textSize(buttonText.menu);
-    text("MENU", 960, 25);
-  }
-
-  //Clouds
-  push();
-  cloudRight(0, 10);
-  cloudLeft(-400, 30);
-  cloudLeft(-290, 2);
-  pop();
-
-  //Birds
-  for (let i = 0; i < 5; i++) {
-    bird(i * 200, i * 100, 20, 20);
-  }
-  push();
-  translate(240, 0);
-  for (let i = 0; i < 5; i++) {
-    bird(i * -200, i * 100, 20, 20);
-  }
-  pop();
-
-  //Big win text
-  push();
-  rectMode(CENTER);
-  noStroke();
-  fill(0, 180, 0);
-  rect(500, 175, 380, 100, 10);
-  pop();
-  push();
-  fill(255);
-  textSize(resultText.big);
-  text("WELL DONE", 500, 180);
-  pop();
-
-  //Small win text
-  push();
-  fill(255);
-  textSize(resultText.small);
-  text("That landing was smooth!", 500, 210);
-  pop();
-
-  //Restart button
-  if (mouseX >= 435 && mouseX <= 595 && mouseY >= 255 && mouseY <= 300) {
-    push();
-    rectMode(CENTER);
-    strokeWeight(2);
-    fill(200);
-    rect(500, 280, 160, 45, 10);
-    pop();
-    push();
-    textSize(buttonText.restart);
-    text("RESTART", 500, 292);
-    pop();
-  } else {
-    push();
-    rectMode(CENTER);
-    strokeWeight(2);
-    fill(255);
-    rect(500, 280, 160, 45, 10);
-    pop();
-    push();
-    textSize(buttonText.restart);
-    text("RESTART", 500, 292);
-    pop();
-  }
-
-  //Character
-  push();
-  character(characterX, 939);
-  pop();
-
-  //Grass
-  push();
-  noStroke();
-  fill(38, 139, 7);
-  rect(0, 563, width, 120);
-  pop();
-
-  //Tip message
-  push();
-  strokeWeight(2);
-  rect(40, 600, 352, 40, 10);
-  textSize(18);
-  text("Tip: Pressing the C key restarts the game", 215, 625);
-  pop();
-}
-
-function resultScreenLose() {
-  push();
-  background(135, 206, 235);
-
-  //Birds
-  for (let i = 0; i < 5; i++) {
-    bird(i * 200, i * 100, 20, 20);
-  }
-  push();
-  translate(240, 0);
-  for (let i = 0; i < 5; i++) {
-    bird(i * -200, i * 100, 20, 20);
-  }
-  pop();
-
-  //Clouds
-  push();
-  cloudRight(0, 10);
-  pop();
-  push();
-  cloudLeft(-400, 30);
-  pop();
-  push();
-  cloudLeft(-290, 2);
-  pop();
-
-  //Grass
-  noStroke();
-  fill(38, 139, 7);
-  rect(0, 563, width, 120);
-  pop();
-  push();
-  translate(900, 0);
-  scale(1);
-  rotate(1.4);
-  character(characterX, 939);
-  pop();
-
-  //Big lose text
-  push();
-  rectMode(CENTER);
-  noStroke();
-  fill(255, 0, 0);
-  rect(500, 175, 460, 100, 10);
-  push();
-  fill(255);
-  textSize(resultText.big);
-  text("YOU CRASHED", 500, 180);
-  pop();
-  pop();
-
-  //Small lose text
-  push();
-  fill(255);
-  textSize(resultText.small);
-  text("That landing was... interesting", 500, 210);
-  pop();
-
-  //Restart button
-  if (mouseX >= 435 && mouseX <= 595 && mouseY >= 255 && mouseY <= 300) {
-    push();
-    rectMode(CENTER);
-    fill(200, 200, 200);
-    strokeWeight(2);
-    rect(500, 280, 160, 45, 10);
-    pop();
-    textSize(buttonText.restart);
-    text("RESTART", 500, 292);
-  } else {
-    push();
-    rectMode(CENTER);
-    fill(255);
-    strokeWeight(2);
-    rect(500, 280, 160, 45, 10);
-    pop();
-    textSize(buttonText.restart);
-    text("RESTART", 500, 292);
-  }
-
-  //Menu button
-  if (mouseX >= 925 && mouseX <= 994 && mouseY >= 5 && mouseY <= 28) {
-    push();
-    rectMode(CENTER);
-    strokeWeight(2);
-    fill(200, 200, 200);
-    rect(960, 18, 70, 25, 10);
-    pop();
-    textSize(buttonText.menu);
-    text("MENU", 960, 25);
-  } else {
-    push();
-    rectMode(CENTER);
-    strokeWeight(2);
-    fill(255);
-    rect(960, 18, 70, 25, 10);
-    pop();
-    textSize(buttonText.menu);
-    text("MENU", 960, 25);
-  }
-
-  //Tip message
-  push();
-  strokeWeight(2);
-  rect(40, 600, 352, 40, 10);
-  textSize(18);
-  text("Tip: Pressing the C key restarts the game", 215, 625);
-  pop();
-}
-
 function character(x, y) {
   scale(0.4);
   strokeWeight(2);
@@ -412,7 +41,7 @@ function character(x, y) {
   if (keyIsDown(32)) {
     push();
     noStroke();
-    fill(255, 64, 0);
+    fill(220, 59, 24);
     triangle(x - 110, y + 180, x - 90, y + 180, x - 100, y + 210);
     triangle(x - 100, y + 180, x - 80, y + 180, x - 90, y + 210);
     triangle(x - 90, y + 180, x - 70, y + 180, x - 80, y + 210);
@@ -422,7 +51,7 @@ function character(x, y) {
     push();
     translate(0, -10);
     noStroke();
-    fill(255, 165, 0);
+    fill(242, 143, 10);
     triangle(x - 110, y + 180, x - 90, y + 180, x - 100, y + 210);
     triangle(x - 100, y + 180, x - 80, y + 180, x - 90, y + 210);
     triangle(x - 90, y + 180, x - 70, y + 180, x - 80, y + 210);
@@ -434,7 +63,7 @@ function character(x, y) {
   if (keyIsDown(32)) {
     push();
     noStroke();
-    fill(255, 64, 0);
+    fill(220, 59, 24);
     translate(360, 0);
     triangle(x - 110, y + 180, x - 90, y + 180, x - 100, y + 210);
     triangle(x - 100, y + 180, x - 80, y + 180, x - 90, y + 210);
@@ -445,7 +74,7 @@ function character(x, y) {
     push();
     translate(0, -10);
     noStroke();
-    fill(255, 165, 0);
+    fill(242, 143, 10);
     translate(360, 0);
     triangle(x - 110, y + 180, x - 90, y + 180, x - 100, y + 210);
     triangle(x - 100, y + 180, x - 80, y + 180, x - 90, y + 210);
@@ -604,6 +233,30 @@ function character(x, y) {
   }
 }
 
+function cloudLeft(x, y) {
+  push();
+  translate(880, 150);
+  fill(255);
+  scale(1.8);
+  noStroke();
+  ellipse(x - 5, y - 57, 50);
+  ellipse(x - 25, y - 55, 40);
+  rect(x - 60, y - 60, 90, 40, 30);
+  pop();
+}
+
+function cloudRight(x, y) {
+  push();
+  translate(880, 150);
+  fill(255);
+  scale(1.8);
+  noStroke();
+  ellipse(x - 26, y - 57, 50);
+  ellipse(x - 5, y - 55, 40);
+  rect(x - 60, y - 60, 90, 40, 30);
+  pop();
+}
+
 function bird(x, y) {
   push();
   translate(22, 170);
@@ -618,33 +271,8 @@ function bird(x, y) {
   pop();
 }
 
-function cloudLeft(x, y) {
-  //Left clouds
-  push();
-  translate(880, 150);
-  fill(255);
-  scale(1.8);
-  noStroke();
-  ellipse(x - 5, y - 57, 50);
-  ellipse(x - 25, y - 55, 40);
-  rect(x - 60, y - 60, 90, 40, 30);
-  pop();
-}
-
-function cloudRight(x, y) {
-  //Right cloud
-  push();
-  translate(880, 150);
-  fill(255);
-  scale(1.8);
-  noStroke();
-  ellipse(x - 26, y - 57, 50);
-  ellipse(x - 5, y - 55, 40);
-  rect(x - 60, y - 60, 90, 40, 30);
-  pop();
-}
-
 function draw() {
+  //Game state logic
   if (state === "start") {
     startScreen();
   } else if (state === "game") {
@@ -681,7 +309,369 @@ function draw() {
   }
 }
 
+function startScreen() {
+  velocity = 0;
+  //Background
+  background(103, 187, 219);
+
+  //Title text background
+  push();
+  fill(0);
+  rectMode(CENTER);
+  rect(500, 275, 640, 70, 10);
+  pop();
+
+  //Title text
+  push();
+  fill(255);
+  textSize(70);
+  text("JADEN'S JETPACK", 500, 300);
+  pop();
+
+  if (mouseX >= 425 && mouseX <= 575 && mouseY >= 333 && mouseY <= 380) {
+    //Start button background hover
+    push();
+    rectMode(CENTER);
+    strokeWeight(2);
+    fill(200);
+    rect(500, 360, 150, 50, 10);
+    pop();
+
+    //Start button text hover
+    push();
+    textSize(buttonText.start);
+    text("START", 500, 375);
+    pop();
+  } else {
+    //Start button background
+    push();
+    rectMode(CENTER);
+    strokeWeight(2);
+    fill(255);
+    rect(500, 360, 150, 50, 10);
+    pop();
+
+    //Start button text
+    push();
+    textSize(buttonText.start);
+    text("START", 500, 375);
+    pop();
+  }
+
+  //Game description box
+  push();
+  rectMode(CENTER);
+  strokeWeight(2);
+  rect(500, 480, 368, 140, 10);
+  pop();
+
+  //Game description text
+  push();
+  textSize(20);
+  textAlign(LEFT);
+  text(
+    "Jaden invented a jetpack and took it for a test ride. There's only one problem: he doesn't know how to land! Use the spacebar to control the jetpack thrust and help him land safely.",
+    325,
+    420,
+    362
+  );
+  pop();
+
+  //Clouds
+  cloudLeft(-400, 30);
+  cloudLeft(-290, 2);
+  cloudRight(0, 10);
+
+  //Birds
+  for (let i = 0; i < 5; i++) {
+    bird(i * 200, i * 100, 20, 20);
+  }
+  push();
+  translate(240, 0);
+  for (let i = 0; i < 5; i++) {
+    bird(i * -200, i * 100, 20, 20);
+  }
+  pop();
+
+  //Grass
+  push();
+  noStroke();
+  fill(55, 174, 15);
+  rect(0, 563, 1000, 120);
+  pop();
+}
+
+function gameScreen() {
+  //Background
+  push();
+  background(103, 187, 219);
+
+  //Birds
+  for (let i = 0; i < 5; i++) {
+    bird(i * 200, i * 100, 20, 20);
+  }
+  push();
+  translate(240, 0);
+  for (let i = 0; i < 5; i++) {
+    bird(i * -200, i * 100, 20, 20);
+  }
+  pop();
+
+  //Clouds
+  cloudLeft(-400, 30);
+  cloudLeft(-290, 2);
+  cloudRight(0, 10);
+
+  //Character
+  character(characterX, characterY);
+
+  //Menu button
+  if (mouseX >= 925 && mouseX <= 994 && mouseY >= 5 && mouseY <= 28) {
+    push();
+    rectMode(CENTER);
+    strokeWeight(2);
+    fill(200);
+    rect(960, 18, 70, 25, 10);
+    pop();
+    textSize(buttonText.menu);
+    text("MENU", 960, 25);
+  } else {
+    push();
+    rectMode(CENTER);
+    strokeWeight(2);
+    fill(255);
+    rect(960, 18, 70, 25, 10);
+    pop();
+    textSize(buttonText.menu);
+    text("MENU", 960, 25);
+  }
+
+  //Grass
+  push();
+  noStroke();
+  fill(55, 174, 15);
+  rect(0, 563, 1000, 120);
+  pop();
+}
+
+function resultScreenWin() {
+  velocity = 0;
+  push();
+  //Background
+  background(103, 187, 219);
+
+  //Menu button
+  if (mouseX >= 925 && mouseX <= 994 && mouseY >= 5 && mouseY <= 28) {
+    push();
+    rectMode(CENTER);
+    strokeWeight(2);
+    fill(200);
+    rect(960, 18, 70, 25, 10);
+    pop();
+    textSize(buttonText.menu);
+    text("MENU", 960, 25);
+  } else {
+    push();
+    rectMode(CENTER);
+    strokeWeight(2);
+    fill(255);
+    rect(960, 18, 70, 25, 10);
+    pop();
+    textSize(buttonText.menu);
+    text("MENU", 960, 25);
+  }
+
+  //Clouds
+  cloudLeft(-400, 30);
+  cloudLeft(-290, 2);
+  cloudRight(0, 10);
+
+  //Birds
+  for (let i = 0; i < 5; i++) {
+    bird(i * 200, i * 100, 20, 20);
+  }
+  push();
+  translate(240, 0);
+  for (let i = 0; i < 5; i++) {
+    bird(i * -200, i * 100, 20, 20);
+  }
+  pop();
+
+  //Big win text
+  push();
+  rectMode(CENTER);
+  noStroke();
+  fill(0, 180, 0);
+  rect(500, 175, 340, 100, 10);
+  pop();
+  push();
+  fill(255);
+  textSize(resultText.big);
+  text("GOOD JOB", 500, 180);
+  pop();
+
+  //Small win text
+  push();
+  fill(255);
+  textSize(resultText.small);
+  text("That landing was smooth!", 500, 210);
+  pop();
+
+  //Restart button
+  if (mouseX >= 435 && mouseX <= 595 && mouseY >= 255 && mouseY <= 300) {
+    push();
+    rectMode(CENTER);
+    strokeWeight(2);
+    fill(200);
+    rect(500, 280, 160, 45, 10);
+    pop();
+    push();
+    textSize(buttonText.restart);
+    text("RESTART", 500, 292);
+    pop();
+  } else {
+    push();
+    rectMode(CENTER);
+    strokeWeight(2);
+    fill(255);
+    rect(500, 280, 160, 45, 10);
+    pop();
+    push();
+    textSize(buttonText.restart);
+    text("RESTART", 500, 292);
+    pop();
+  }
+
+  //Character
+  push();
+  character(characterX, 939);
+  pop();
+
+  //Grass
+  push();
+  noStroke();
+  fill(55, 174, 15);
+  rect(0, 563, 1000, 120);
+  pop();
+
+  //Tip message
+  push();
+  strokeWeight(2);
+  rect(40, 600, 352, 40, 10);
+  textSize(18);
+  text("Tip: Pressing the C key restarts the game", 215, 625);
+  pop();
+}
+
+function resultScreenLose() {
+  push();
+  //Sky
+  background(103, 187, 219);
+
+  //Birds
+  for (let i = 0; i < 5; i++) {
+    bird(i * 200, i * 100, 20, 20);
+  }
+  push();
+  translate(240, 0);
+  for (let i = 0; i < 5; i++) {
+    bird(i * -200, i * 100, 20, 20);
+  }
+  pop();
+
+  //Clouds
+  cloudLeft(-400, 30);
+  cloudLeft(-290, 2);
+  cloudRight(0, 10);
+
+  //Grass
+  push();
+  noStroke();
+  fill(55, 174, 15);
+  rect(0, 563, 1000, 120);
+  pop();
+
+  //Character
+  push();
+  translate(900, 0);
+  scale(1);
+  rotate(1.4);
+  character(characterX, 939);
+  pop();
+
+  //Big lose text
+  push();
+  rectMode(CENTER);
+  noStroke();
+  fill(255, 0, 0);
+  rect(500, 175, 460, 100, 10);
+  push();
+  fill(255);
+  textSize(resultText.big);
+  text("YOU CRASHED", 500, 180);
+  pop();
+  pop();
+
+  //Small lose text
+  push();
+  fill(255);
+  textSize(resultText.small);
+  text("That landing was... interesting", 500, 210);
+  pop();
+
+  //Restart button
+  if (mouseX >= 435 && mouseX <= 595 && mouseY >= 255 && mouseY <= 300) {
+    push();
+    rectMode(CENTER);
+    fill(200, 200, 200);
+    strokeWeight(2);
+    rect(500, 280, 160, 45, 10);
+    pop();
+    textSize(buttonText.restart);
+    text("RESTART", 500, 292);
+  } else {
+    push();
+    rectMode(CENTER);
+    fill(255);
+    strokeWeight(2);
+    rect(500, 280, 160, 45, 10);
+    pop();
+    textSize(buttonText.restart);
+    text("RESTART", 500, 292);
+  }
+
+  //Menu button
+  if (mouseX >= 925 && mouseX <= 994 && mouseY >= 5 && mouseY <= 28) {
+    push();
+    rectMode(CENTER);
+    strokeWeight(2);
+    fill(200, 200, 200);
+    rect(960, 18, 70, 25, 10);
+    pop();
+    textSize(buttonText.menu);
+    text("MENU", 960, 25);
+  } else {
+    push();
+    rectMode(CENTER);
+    strokeWeight(2);
+    fill(255);
+    rect(960, 18, 70, 25, 10);
+    pop();
+    textSize(buttonText.menu);
+    text("MENU", 960, 25);
+  }
+
+  //Tip message
+  push();
+  strokeWeight(2);
+  rect(40, 600, 352, 40, 10);
+  textSize(18);
+  text("Tip: Pressing the C key restarts the game", 215, 625);
+  pop();
+}
+
 function mouseClicked() {
+  //Swtiches between states if buttons are clicked
   if (
     state === "start" &&
     mouseX >= 425 &&
@@ -743,6 +733,7 @@ function mouseClicked() {
 }
 
 function keyPressed() {
+  ////Swtiches between states if the C key is pressed
   if (state === "start" && keyIsDown(67)) {
     state = "game";
     characterY = -350;
