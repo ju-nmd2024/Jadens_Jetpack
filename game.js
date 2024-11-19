@@ -4,7 +4,7 @@ Made by Emil Eriksson
 */
 
 //Game state and gravity
-let state = "resultWin";
+let state = "start";
 let velocity = 0.4;
 let acceleration = 0.2;
 
@@ -300,11 +300,11 @@ function draw() {
   }
 
   //Checks for win condition
-  if (velocity <= 9 && characterY >= 939 && state === "game") {
+  if (velocity <= 5 && characterY > 939 && state === "game") {
     velocity = 0;
     acceleration = 0;
     state = "resultWin";
-  } else if (velocity >= 9 && characterY >= 939) {
+  } else if (velocity > 5 && characterY > 939) {
     state = "resultLose";
   }
 }
