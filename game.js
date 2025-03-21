@@ -271,6 +271,41 @@ function bird(x, y) {
   pop();
 }
 
+function restartButton() {
+  if (mouseX >= 435 && mouseX <= 595 && mouseY >= 255 && mouseY <= 300) {
+    push();
+    rectMode(CENTER);
+    strokeWeight(2);
+    fill(200);
+    rect(500, 280, 160, 45, 10);
+    pop();
+    push();
+    textSize(buttonText.restart);
+    text("RESTART", 500, 292);
+    pop();
+  } else {
+    push();
+    rectMode(CENTER);
+    strokeWeight(2);
+    fill(255);
+    rect(500, 280, 160, 45, 10);
+    pop();
+    push();
+    textSize(buttonText.restart);
+    text("RESTART", 500, 292);
+    pop();
+  }
+}
+
+function tipMessage() {
+  push();
+  strokeWeight(2);
+  rect(40, 600, 352, 40, 10);
+  textSize(18);
+  text("Tip: Pressing the C key restarts the game", 215, 625);
+  pop();
+}
+
 function draw() {
   //Game state logic
   if (state === "start") {
@@ -518,29 +553,7 @@ function resultScreenWin() {
   pop();
 
   //Restart button
-  if (mouseX >= 435 && mouseX <= 595 && mouseY >= 255 && mouseY <= 300) {
-    push();
-    rectMode(CENTER);
-    strokeWeight(2);
-    fill(200);
-    rect(500, 280, 160, 45, 10);
-    pop();
-    push();
-    textSize(buttonText.restart);
-    text("RESTART", 500, 292);
-    pop();
-  } else {
-    push();
-    rectMode(CENTER);
-    strokeWeight(2);
-    fill(255);
-    rect(500, 280, 160, 45, 10);
-    pop();
-    push();
-    textSize(buttonText.restart);
-    text("RESTART", 500, 292);
-    pop();
-  }
+  restartButton();
 
   //Character
   push();
@@ -555,12 +568,7 @@ function resultScreenWin() {
   pop();
 
   //Tip message
-  push();
-  strokeWeight(2);
-  rect(40, 600, 352, 40, 10);
-  textSize(18);
-  text("Tip: Pressing the C key restarts the game", 215, 625);
-  pop();
+  tipMessage();
 }
 
 function resultScreenLose() {
@@ -620,25 +628,7 @@ function resultScreenLose() {
   pop();
 
   //Restart button
-  if (mouseX >= 435 && mouseX <= 595 && mouseY >= 255 && mouseY <= 300) {
-    push();
-    rectMode(CENTER);
-    fill(200, 200, 200);
-    strokeWeight(2);
-    rect(500, 280, 160, 45, 10);
-    pop();
-    textSize(buttonText.restart);
-    text("RESTART", 500, 292);
-  } else {
-    push();
-    rectMode(CENTER);
-    fill(255);
-    strokeWeight(2);
-    rect(500, 280, 160, 45, 10);
-    pop();
-    textSize(buttonText.restart);
-    text("RESTART", 500, 292);
-  }
+  restartButton();
 
   //Menu button
   if (mouseX >= 925 && mouseX <= 994 && mouseY >= 5 && mouseY <= 28) {
@@ -662,12 +652,7 @@ function resultScreenLose() {
   }
 
   //Tip message
-  push();
-  strokeWeight(2);
-  rect(40, 600, 352, 40, 10);
-  textSize(18);
-  text("Tip: Pressing the C key restarts the game", 215, 625);
-  pop();
+  tipMessage();
 }
 
 function mouseClicked() {
@@ -733,7 +718,7 @@ function mouseClicked() {
 }
 
 function keyPressed() {
-  ////Swtiches between states if the C key is pressed
+  //Switches between states if the C key is pressed
   if (state === "start" && keyIsDown(67)) {
     state = "game";
     characterY = -350;
